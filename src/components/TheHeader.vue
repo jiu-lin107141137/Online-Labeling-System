@@ -26,7 +26,7 @@ import { RouterLink } from 'vue-router';
             <RouterLink class="" to="/">Management</RouterLink>
           </li>
           <li>
-            <RouterLink class="" to="/">Login</RouterLink>
+            <RouterLink class="" to="/login">Login</RouterLink>
           </li>
         </ul>
       </nav>
