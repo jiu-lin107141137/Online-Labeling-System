@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import TheHeader from './components/TheHeader.vue';
+import TheFooter from './components/icons/TheFooter.vue';
 import { RouterView } from 'vue-router';
 </script>
 
 <template>
   <TheHeader />
   <RouterView />
+  <TheFooter />
 </template>
 
 <style lang="scss">
@@ -21,6 +23,9 @@ import { RouterView } from 'vue-router';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content auto min-content;
   }
 
   .content-container {

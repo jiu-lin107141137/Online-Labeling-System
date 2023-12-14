@@ -7,7 +7,7 @@ import { RouterLink } from 'vue-router';
     <div class="content-container">
       <nav>
         <div class="logo">
-          OLS
+          FlowX
         </div>
         <input type="checkbox" id="click">
         <label for="click" class="menu-btn">
