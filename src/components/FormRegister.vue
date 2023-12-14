@@ -11,9 +11,10 @@ import type { Ref } from 'vue';
 const router = useRoute();
 const accountValue: Ref<string> = ref('');
 const passwordValue: Ref<string> = ref('');
+const repasswordValue: Ref<string> = ref('');
 const verificationValue: Ref<string> = ref('');
 const verificationCode: Ref<string> = ref('');
-const formTitle: string = router.name?.toString() ?? 'Login';
+const formTitle: string = router.name?.toString() ?? 'Register';
 
 const sendRequest = async() => {
   console.log("trigger");
@@ -43,7 +44,18 @@ const sendRequest = async() => {
           Password
         </template>
         <template #small>
-          Please enter your password here.
+          Please enter your password here, the password should be consisted of only numbers and alphabets, at least 6-characters long, and max 20-characters long.
+        </template>
+      </FormBaseInputText>
+
+      <FormBaseInputText 
+        v-model:input-value="repasswordValue" 
+        :input-type="'password'">
+        <template #label>
+          Password Confirm
+        </template>
+        <template #small>
+          Please enter your password again.
         </template>
       </FormBaseInputText>
 
@@ -62,12 +74,12 @@ const sendRequest = async() => {
       <FormBaseGraphValidation 
         @verification-code-change="(newV) => verificationCode = newV"/>
       <FormBaseButton @click="sendRequest()"/>
-      <FormBaseHint :to="'/register'">
+      <FormBaseHint :to="'/login'">
         <template #hint>
-          Haven't signed up?
+          Already have an account?
         </template>
         <template #link>
-          Sign up.
+          Login.
         </template>
       </FormBaseHint>
     </div>
