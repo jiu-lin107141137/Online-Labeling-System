@@ -136,10 +136,16 @@ nav {
 
       ~ ul {
         max-height: 10rem;
+
+        li a {
+          padding-left: 0;
+          opacity: 1;
+        }
       }
     }
 
     ul {
+      padding: 0 0 0 var(--page-gutter);
       position: absolute;
       top: 5rem;
       left: 0;
@@ -150,13 +156,19 @@ nav {
       overflow: hidden;
       z-index: 999;
       max-height: 0;
-      transition: all .25s ease-in-out;
+      transition: max-height .25s ease-in-out;
 
       li {
         position: relative;
         display: block;
         width: 100%;
         margin: .75rem 0;
+
+        a {
+          padding-left: 5rem;
+          padding-right: 0;
+          opacity: 0;
+        }
         
         a::after {
           background: var(--blue-600);
