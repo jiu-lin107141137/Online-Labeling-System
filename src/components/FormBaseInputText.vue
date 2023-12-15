@@ -31,7 +31,7 @@ defineEmits<{
 <style lang="scss" scoped>
 .from-base-field {
   position: relative;
-  margin: 1.5rem 1rem;
+  margin: 1.5rem 1rem 0;
   border-bottom: 1px solid var(--gray-500);
   width: 100%;
 
@@ -39,7 +39,7 @@ defineEmits<{
     width: 100%;
     padding: 0 0.4rem;
     height: 3.2rem;
-    font-size: 1rem;
+    font-size: 1.25rem;
     border: none;
     background: none;
     outline: none;
@@ -50,7 +50,7 @@ defineEmits<{
     top: 60%;
     left: 0.4rem;
     color: var(--gray-500);
-    font-size: 1rem;
+    font-size: 1.25rem;
     transform: translateY(-50%);
     pointer-events: none;
     transition: all 0.5s ease-in-out 0s;

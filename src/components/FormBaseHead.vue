@@ -22,5 +22,6 @@ const props = defineProps<{
   letter-spacing: 1px;
   padding: 0.5rem 0;
   border-bottom: 2px solid var(--gray-400);
+  user-select: none;
 }
 </style>

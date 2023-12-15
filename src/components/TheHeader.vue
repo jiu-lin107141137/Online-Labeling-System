@@ -36,7 +36,7 @@ import { RouterLink } from 'vue-router'
 }
 .container-wrapper {
   background: var(--gray-800);
-  box-shadow: 0 0.5rem 0.25rem var(--gray-400);
+  box-shadow: 0 .25rem .25rem var(--gray-400);
 }
 
 nav {

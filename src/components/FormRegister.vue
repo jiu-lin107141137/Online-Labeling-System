@@ -27,25 +27,25 @@ const sendRequest = async () => {
     <div class="form-body">
       <FormBaseInputText v-model:input-value="accountValue" :input-type="'text'">
         <template #label> Email </template>
-        <template #small> Please enter your email here. </template>
+        <template #small></template>
       </FormBaseInputText>
 
       <FormBaseInputText v-model:input-value="passwordValue" :input-type="'password'">
         <template #label> Password </template>
         <template #small>
-          Please enter your password here, the password must consist of only numbers and alphabets
+          The password must consist of only numbers and alphabets
           and be 6 - 20 characters long.
         </template>
       </FormBaseInputText>
 
-      <FormBaseInputText v-model:input-value="repasswordValue" :input-type="'password'">
+      <FormBaseInputText class="mt" v-model:input-value="repasswordValue" :input-type="'password'">
         <template #label> Password Confirm </template>
-        <template #small> Please enter your password again. </template>
+        <template #small></template>
       </FormBaseInputText>
 
       <FormBaseInputText v-model:input-value="verificationValue" :input-type="'text'">
         <template #label> Verification code </template>
-        <template #small> Please enter the verification code here. </template>
+        <template #small></template>
       </FormBaseInputText>
       <FormBaseGraphValidation @verification-code-change="(newV) => (verificationCode = newV)" />
       <FormBaseButton @click="sendRequest()" />
@@ -59,7 +59,7 @@ const sendRequest = async () => {
 
 <style lang="scss" scoped>
 .form-container {
-  width: 30rem;
+  width: max(30rem, 50%);
   border-radius: 0.5rem;
   border: 0.125rem solid var(--gray-400);
   box-shadow: 0px 0px 0.25rem 0.25rem var(--gray-200);
@@ -67,11 +67,15 @@ const sendRequest = async () => {
   margin: 2rem 0;
 
   .form-body {
-    padding: 0.5rem 0.5rem 1.5rem;
+    padding: .5rem 1.5rem 1.5rem;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     height: 100%;
+
+    .mt {
+      margin-top: 3rem;
+    }
   }
 }
 </style>

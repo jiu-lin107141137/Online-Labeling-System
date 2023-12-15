@@ -85,6 +85,7 @@ const randomInt = (min: number, max: number) => {
 
 <style lang="scss" scoped>
 .canvas-container {
+  margin-top: 1rem;
   padding: 0 1rem;
   width: 100%;
 }
