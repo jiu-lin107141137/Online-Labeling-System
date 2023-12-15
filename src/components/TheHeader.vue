@@ -1,22 +1,16 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
   <div class="container-wrapper">
     <div class="content-container">
       <nav>
-        <div class="logo">
-          FlowX
-        </div>
-        <input type="checkbox" id="click">
+        <div class="logo">FlowX</div>
+        <input type="checkbox" id="click" />
         <label for="click" class="menu-btn">
-          <span class="material-symbols-outlined menu-open">
-            menu
-          </span>
-          <span class="material-symbols-outlined menu-close">
-            close
-          </span>
+          <span class="material-symbols-outlined menu-open"> menu </span>
+          <span class="material-symbols-outlined menu-close"> close </span>
         </label>
         <ul>
           <li>
@@ -37,12 +31,12 @@ import { RouterLink } from 'vue-router';
 <style lang="scss" scoped>
 @mixin navPhone {
   @media (width < 992px) {
-    @content
+    @content;
   }
-};
+}
 .container-wrapper {
   background: var(--gray-800);
-  box-shadow: 0 .5rem .25rem var(--gray-400);
+  box-shadow: 0 0.5rem 0.25rem var(--gray-400);
 }
 
 nav {
@@ -64,13 +58,13 @@ nav {
   .menu-btn span {
     color: var(--gray-100);
     font-size: 1.8rem;
-    border: .25rem solid var(--gray-600);
-    border-radius: .5rem;
+    border: 0.25rem solid var(--gray-600);
+    border-radius: 0.5rem;
     cursor: pointer;
     display: none;
   }
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     display: none;
   }
 
@@ -80,7 +74,7 @@ nav {
     list-style: none;
 
     li {
-      margin: 0 .25rem;
+      margin: 0 0.25rem;
 
       a {
         position: relative;
@@ -88,22 +82,22 @@ nav {
         text-decoration: none;
         font-size: 1.125rem;
         font-weight: 500;
-        padding: .5rem 1rem;
-        border-radius: .375rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
         letter-spacing: 1px;
-        transition: all .25s ease-in-out;
+        transition: all 0.25s ease-in-out;
       }
 
       a::after {
         content: '';
         position: absolute;
         width: 100%;
-        height: .125rem;
+        height: 0.125rem;
         top: 100%;
         left: 0;
         max-width: 0;
         background: var(--blue-600);
-        transition: all .25s ease-in-out;
+        transition: all 0.25s ease-in-out;
       }
 
       a:hover::after {
@@ -152,24 +146,24 @@ nav {
       width: 100%;
       height: auto;
       background: var(--gray-700);
-      box-shadow: 0 .5rem .25rem var(--gray-400);
+      box-shadow: 0 0.5rem 0.25rem var(--gray-400);
       overflow: hidden;
       z-index: 999;
       max-height: 0;
-      transition: max-height .25s ease-in-out;
+      transition: max-height 0.25s ease-in-out;
 
       li {
         position: relative;
         display: block;
         width: 100%;
-        margin: .75rem 0;
+        margin: 0.75rem 0;
 
         a {
           padding-left: 5rem;
           padding-right: 0;
           opacity: 0;
         }
-        
+
         a::after {
           background: var(--blue-600);
         }

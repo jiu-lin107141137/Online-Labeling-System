@@ -1,23 +1,23 @@
 <script setup lang="ts">
 defineProps<{
-  inputValue: string,
-  inputType: string,
-}>();
+  inputValue: string
+  inputType: string
+}>()
 defineEmits<{
-  (e: 'update:inputValue', value: string): void;
-}>();
+  (e: 'update:inputValue', value: string): void
+}>()
 </script>
 
 <template>
-  <div class="from-base-field">  
-    <input 
+  <div class="from-base-field">
+    <input
       :type="inputType"
       :value="inputValue"
       @input="$emit('update:inputValue', ($event.target as HTMLInputElement).value.trim())"
       maxlength="30"
       required
       autocomplete="false"
-      />
+    />
     <span></span>
     <label>
       <slot name="label"></slot>
@@ -26,8 +26,6 @@ defineEmits<{
       <slot name="small"></slot>
     </small>
   </div>
-
-
 </template>
 
 <style lang="scss" scoped>
@@ -39,7 +37,7 @@ defineEmits<{
 
   input {
     width: 100%;
-    padding: 0 .4rem;
+    padding: 0 0.4rem;
     height: 3.2rem;
     font-size: 1rem;
     border: none;
@@ -50,12 +48,12 @@ defineEmits<{
   label {
     position: absolute;
     top: 60%;
-    left: .4rem;
+    left: 0.4rem;
     color: var(--gray-500);
     font-size: 1rem;
     transform: translateY(-50%);
     pointer-events: none;
-    transition: all .5s ease-in-out 0s;
+    transition: all 0.5s ease-in-out 0s;
   }
 
   span::before {
@@ -66,7 +64,7 @@ defineEmits<{
     width: 0;
     height: 2px;
     background: var(--blue-600);
-    transition: all .5s ease-in-out 0s;
+    transition: all 0.5s ease-in-out 0s;
   }
 
   input:focus ~ label,
@@ -85,7 +83,7 @@ defineEmits<{
     text-align: left;
     position: absolute;
     top: 110%;
-    left: .5rem;
+    left: 0.5rem;
     color: var(--gray-500);
   }
 }

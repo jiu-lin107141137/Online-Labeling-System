@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   title: string
-}> ();
+}>()
 </script>
 
 <template>
@@ -20,7 +20,7 @@ const props = defineProps<{
   color: var(--gray-200);
   text-transform: capitalize;
   letter-spacing: 1px;
-  padding: .5rem 0;
+  padding: 0.5rem 0;
   border-bottom: 2px solid var(--gray-400);
 }
 </style>

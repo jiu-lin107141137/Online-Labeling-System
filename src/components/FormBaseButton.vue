@@ -1,8 +1,7 @@
 <script setup lang="ts">
 defineEmits<{
-  (e: 'click'): void;
-}>();
-
+  (e: 'click'): void
+}>()
 </script>
 
 <template>
@@ -14,23 +13,23 @@ defineEmits<{
 <style lang="scss" scoped>
 .btn {
   position: relative;
-  margin: .3rem auto;
-  padding: .5rem;
+  margin: 0.3rem auto;
+  padding: 0.5rem;
   background: var(--blue-600);
   // background: transparent;
   color: var(--gray-200);
-  border: .125rem solid var(--blue-600);
-  border-radius: .5rem;
+  border: 0.125rem solid var(--blue-600);
+  border-radius: 0.5rem;
   font-size: 1.2rem;
   font-weight: 600;
-  transition: background .25s ease-in-out,
-              border .25s ease-in-out;
+  transition:
+    background 0.25s ease-in-out,
+    border 0.25s ease-in-out;
   cursor: pointer;
 }
 
 .btn:hover {
   background: var(--blue-400);
-  border: .125rem solid var(--blue-500);
+  border: 0.125rem solid var(--blue-500);
 }
-
 </style>
