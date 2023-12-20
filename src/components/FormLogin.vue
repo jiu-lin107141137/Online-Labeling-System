@@ -4,6 +4,7 @@ import FormBaseInputText from './FormBaseInputText.vue'
 import FormBaseGraphValidation from './FormBaseGraphValidation.vue'
 import FormBaseButton from './FormBaseButton.vue'
 import FormBaseHint from './FormBaseHint.vue'
+import BaseAlert from './BaseAlert.vue'
 import { useRoute } from 'vue-router'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
@@ -14,9 +15,14 @@ const passwordValue: Ref<string> = ref('')
 const verificationValue: Ref<string> = ref('')
 const verificationCode: Ref<string> = ref('')
 const formTitle: string = router.name?.toString() ?? 'Login'
+const alertColor: Ref<string> = ref('green')
+const alertShow: Ref<boolean> = ref(false)
+const alertDelay: Ref<number> = ref(3000)
 
 const sendRequest = async () => {
   console.log('trigger')
+  alertShow.value = true;
+  setTimeout(() => alertShow.value = false, alertDelay.value);
 }
 </script>
 
@@ -45,15 +51,16 @@ const sendRequest = async () => {
         <template #link> Sign up. </template>
       </FormBaseHint>
     </div>
+    <BaseAlert :color="alertColor" :show="alertShow" :delay="alertDelay"/>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .form-container {
   width: max(30rem, 50%);
-  border-radius: 0.5rem;
-  border: 0.125rem solid var(--gray-400);
-  box-shadow: 0px 0px 0.25rem 0.25rem var(--gray-200);
+  border-radius: .5rem;
+  border: .125rem solid var(--gray-400);
+  box-shadow: 0 0 .25rem .25rem var(--gray-300);
   overflow: hidden;
   margin: 2rem 0;
 
