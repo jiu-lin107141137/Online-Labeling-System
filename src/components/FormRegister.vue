@@ -4,6 +4,7 @@ import FormBaseInputText from './FormBaseInputText.vue'
 import FormBaseGraphValidation from './FormBaseGraphValidation.vue'
 import FormBaseButton from './FormBaseButton.vue'
 import FormBaseHint from './FormBaseHint.vue'
+import BaseAlert from './BaseAlert.vue'
 import { useRoute } from 'vue-router'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
@@ -15,9 +16,13 @@ const repasswordValue: Ref<string> = ref('')
 const verificationValue: Ref<string> = ref('')
 const verificationCode: Ref<string> = ref('')
 const formTitle: string = router.name?.toString() ?? 'Register'
+const alertColor: Ref<string> = ref('red')
+const alertShow: Ref<boolean> = ref(false)
+const alertDelay: Ref<number> = ref(3000)
 
 const sendRequest = async () => {
-  console.log('trigger')
+  alertShow.value = true;
+  setTimeout(() => alertShow.value = false, alertDelay.value);
 }
 </script>
 
@@ -54,6 +59,7 @@ const sendRequest = async () => {
         <template #link> Login. </template>
       </FormBaseHint>
     </div>
+    <BaseAlert :color="alertColor" :show="alertShow" :delay="alertDelay"/>
   </div>
 </template>
 

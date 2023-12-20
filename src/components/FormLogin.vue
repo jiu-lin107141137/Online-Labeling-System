@@ -15,12 +15,11 @@ const passwordValue: Ref<string> = ref('')
 const verificationValue: Ref<string> = ref('')
 const verificationCode: Ref<string> = ref('')
 const formTitle: string = router.name?.toString() ?? 'Login'
-const alertColor: Ref<string> = ref('green')
+const alertColor: Ref<string> = ref('red')
 const alertShow: Ref<boolean> = ref(false)
 const alertDelay: Ref<number> = ref(3000)
 
 const sendRequest = async () => {
-  console.log('trigger')
   alertShow.value = true;
   setTimeout(() => alertShow.value = false, alertDelay.value);
 }

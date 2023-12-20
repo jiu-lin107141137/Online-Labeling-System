@@ -31,12 +31,12 @@ watch(() => props.show, () => {
   <Teleport to="body">
     <div class="alert" :class="color" ref="alertDiv">
       <span class="material-symbols-outlined" v-if="color == 'red'">
-        info
+        error
       </span>
       <span class="material-symbols-outlined" v-else>
         check_circle
       </span>
-      <p>This is a alert message.</p>
+      <p>This is an alert message.</p>
     </div>
   </Teleport>
 </template>
