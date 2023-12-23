@@ -9,10 +9,6 @@ for (const route of router) {
   app.use(route.getPrefix(), route.getRouter());
 }
 
-app.get('/', (req, res) => {
-  res.send('The server is working!');
-});
-
 const server = createServer(app);
 
 server.listen(port);
