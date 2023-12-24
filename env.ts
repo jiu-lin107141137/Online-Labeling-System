@@ -1,19 +1,20 @@
 import { createHash } from 'crypto';
+import sql from 'mssql';
 
-const dbConfig = {
-  user: 'Jason',
-  password: 'Jason',
-  server: '127.0.0.1', 
-  database: 'OnlineLabelingDB',
-  connectionTimeout: 10000,
-  requestTimeout: 10000,
-  options: {
-      trustedConnection: true,
-      enableArithAort: true,
-      instancename: 'SQLEXPRESS',
-      trustServerCertificate: true
-  },
-  port: 1433
+const dbConfig: sql.config = {
+    user: 'Jason',
+    password: 'Jason',
+    server: '127.0.0.1', 
+    database: 'OnlineLabelingDB',
+    connectionTimeout: 10000,
+    requestTimeout: 10000,
+    options: {
+        trustedConnection: true,
+        enableArithAbort: true,
+        instanceName: 'SQLEXPRESS',
+        trustServerCertificate: true
+    },
+    port: 1433
 }
 
 const hashConfig = {
@@ -35,7 +36,7 @@ const jwtConfig = {
   REFRESH_SECRET: REFRESH_SECRET,
 }
 
-module.exports = {
+export {
   dbConfig,
   hashConfig,
   jwtConfig,
