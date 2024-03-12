@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2016",                                  
+    "target": "Es2016",                    
     "module": "CommonJS",         
     "outDir": "dist",  
     "esModuleInterop": true, 
@@ -10,9 +10,6 @@
   },
   "ts-node": {
     "esm": true,
-    "compilerOptions": {
-      "module": "nodenext",
-    }
+    "experimentalSpecifierResolution": "node",
   }
-  
 }
