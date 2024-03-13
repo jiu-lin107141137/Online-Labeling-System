@@ -5,12 +5,12 @@ import UserModel from "../models/UserModel";
 
 class AuthController {
   async login(req: Request, res: Response) {
-    res.status(200).json(new Reply(200, 'Login successfully!', null));
+    res.status(200).json(new Reply(200, 'Login successfully!', null, false));
   }
   async register(req: Request, res: Response) {
     let email = req.body.email, password = req.body.password, name = req.body.name || email;
     if(!User.isValidEmail(email) || !User.isValidPassword(password) || !User.isValidName(name)) // validation
-      res.status(400).json(new Reply(400, 'Invalid input format!', null));
+      res.status(400).json(new Reply(400, 'Invalid input format!', null, false));
     else {
       try {
         let count = await UserModel.getDuplicate(email);
@@ -19,20 +19,22 @@ class AuthController {
           res.status(200).json(new Reply(
             200,
             'Register successfully',
-            null
+            null,
+            false
           ));
         }
         else { // found duplicate data
           res.status(400).json(new Reply(
             400,
             'The email had been used!',
-            null
+            null,
+            false
           ));
         }
       }
       catch(err) {
         console.log(err);
-        res.status(500).json(new Reply(500, 'An internal error happened, please try again later!', null));
+        res.status(500).json(new Reply(500, 'An internal error happened, please try again later!', null, false));
       }
     }
   }
