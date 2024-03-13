@@ -1,10 +1,11 @@
-import express from 'express';
+import express, { Express } from 'express';
 import { createServer } from 'http';
 import { router } from "./Router";
+import dotenv from "dotenv";
+dotenv.config();
 
-const app: express.Application = express();
-const port = 3000;
-
+const app: Express = express();
+const port = process.env.PORT || 3000;
 for (const route of router) {
   app.use(route.getPrefix(), route.getRouter());
 }

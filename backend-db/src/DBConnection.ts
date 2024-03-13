@@ -2,17 +2,16 @@ import { dbConfig } from '../env';
 import sql from 'mssql';
 import SqlParameter from './util/SqlParameter';
 
-let pool: sql.ConnectionPool;
-
 class DBConnection {
+  static pool: sql.ConnectionPool;
   private static async checkPool() {
-    if(!pool)
-      pool = await sql.connect(dbConfig);
+    if(!this.pool)
+      this.pool = await sql.connect(dbConfig);
   }
   protected static async execute(command: string, params: Array<SqlParameter>): Promise<sql.IResult<any>> {
     await this.checkPool();
     try {
-      const request = pool.request();
+      const request = this.pool.request();
       for(const param of params)
         request.input(param.columnName, param.type, param.value);
       let result = await request.query(command);
@@ -24,7 +23,7 @@ class DBConnection {
   }
   protected static async executeInTransaction(command: string, params: Array<SqlParameter>): Promise<sql.IResult<any>> {
     await this.checkPool();
-    const transaction: sql.Transaction = new sql.Transaction(pool);
+    const transaction: sql.Transaction = new sql.Transaction(this.pool);
     try {
       await transaction.begin();
       const request = new sql.Request(transaction);
