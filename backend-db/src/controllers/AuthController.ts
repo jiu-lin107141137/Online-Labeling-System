@@ -8,18 +8,33 @@ class AuthController {
     res.status(200).json(new Reply(200, 'Login successfully!', null));
   }
   async register(req: Request, res: Response) {
-    let email = req.body.email, password = req.body.password;
-    // if(!User.isValidEmail(email) || !User.isValidPassword(password))
-    //   res.status(400).json(new Reply(400, 'Invalid input format!', null));
-    // else {
-    //   try {
-        await UserModel.addUser(email, password);
-    //   }
-    //   catch(err) {
-    //     console.log(err);
-    //     res.status(500).json(new Reply(500, 'An internal error happened, please try again later!', null));
-    //   }
-    // }
+    let email = req.body.email, password = req.body.password, name = req.body.name || email;
+    if(!User.isValidEmail(email) || !User.isValidPassword(password) || !User.isValidName(name)) // validation
+      res.status(400).json(new Reply(400, 'Invalid input format!', null));
+    else {
+      try {
+        let count = await UserModel.getDuplicate(email);
+        if(count == 0) { 
+          await UserModel.addUser(email, password, name);
+          res.status(200).json(new Reply(
+            200,
+            'Register successfully',
+            null
+          ));
+        }
+        else { // found duplicate data
+          res.status(400).json(new Reply(
+            400,
+            'The email had been used!',
+            null
+          ));
+        }
+      }
+      catch(err) {
+        console.log(err);
+        res.status(500).json(new Reply(500, 'An internal error happened, please try again later!', null));
+      }
+    }
   }
 }
 

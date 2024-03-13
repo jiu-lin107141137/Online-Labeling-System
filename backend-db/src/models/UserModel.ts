@@ -1,20 +1,47 @@
 import DBConnection from "../DBConnection";
+import SqlParameter from "../util/SqlParameter";
+import User from "../util/User";
 
 class UserModel extends DBConnection {
-    public static async addUser(email: string, password: string) {
-        // generate sql string
-        let sql = `
-            INSERT INTO table_name (column1, column2, column3...)
-            VALUES (value1, value2, value3...);
-        `;
-        
-        try {
-            // let res = await this.executeInTransaction(sql, []);
-            // return res;
-        } catch(err) {
-            throw err;
-        }
+  public static async addUser(email: string, password: string, name: string) {
+    // generate sql string
+    let sql = `
+      INSERT INTO User (${User.columnMap.email}, ${User.columnMap.password}, ${User.columnMap.name})
+      VALUES (@${User.columnMap.email}, @${User.columnMap.password}, @${User.columnMap.name});
+    `;
+
+    let paramList = [
+      new SqlParameter(User.columnMap.email, User.columnType.email, email),
+      new SqlParameter(User.columnMap.password, User.columnType.password, password),
+      new SqlParameter(User.columnMap.name, User.columnType.name, name)
+    ];
+    
+    try {
+      let res = await this.executeInTransaction(sql, paramList);
+      return res;
+    } catch(err) {
+      throw err;
     }
+  }
+
+  public static async getDuplicate(email: string) {
+    let sql = `
+      SELECT COUNT(*)
+      FROM TABLE User
+      Where email=@${User.columnMap.email}
+    `;
+
+    let paramList = [
+      new SqlParameter(User.columnMap.email, User.columnType.email, email)
+    ];
+
+    try {
+      let res = (await this.executeInTransaction(sql, paramList)).recordset[0];
+      return res;
+    } catch(err) {
+      throw err;
+    }
+  }
 }
 
 export default UserModel;

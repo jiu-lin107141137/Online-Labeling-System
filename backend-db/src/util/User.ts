@@ -8,28 +8,32 @@ class User {
   // public priority: number|null;
   // public classId: number|null;
   public static columnMap = {
-    userId: 'UserId',
-    email: 'Email',
-    password: 'Password',
-    name: 'Name',
-    priority: 'Priority',
-    classId: 'ClassId'
+    userId: 'user_id',
+    email: 'email',
+    password: 'password',
+    name: 'name',
+    priority: 'priority',
+    classId: 'class_id'
   };
   public static columnType = {
-    userId: sql.Int,
+    userId: sql.UniqueIdentifier,
     email: sql.NVarChar,
-    password: sql.NVarChar,
+    password: sql.Char,
     name: sql.NVarChar,
     priority: sql.TinyInt,
     classId: sql.Int
   };
 
   public static isValidEmail(email: string): boolean {
-      return !!email.match(/^\S+@\S+\.\S+$/)
+    return !!email.match(/^\S+@\S+\.\S+$/) && email.length < 50;
+  }
+
+  public static isValidName(name: string): boolean {
+    return name.length < 50;
   }
 
   public static isValidPassword(password: string): boolean {
-      return !!password.match(/^[0-9A-Za-z]+$/) && password.length >= 8 && password.length <= 20;
+    return !!password.match(/^[0-9A-Za-z]+$/) && password.length >= 8 && password.length <= 20;
   }
   // public constructor(userId: number|null, email: string|null, password: string|null, name: string|null, priority: number|null, classId: number|null) {
   //   this.userId = userId;
