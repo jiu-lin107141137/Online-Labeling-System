@@ -5,22 +5,85 @@ import FormBaseGraphValidation from './FormBaseGraphValidation.vue'
 import FormBaseButton from './FormBaseButton.vue'
 import FormBaseHint from './FormBaseHint.vue'
 import BaseAlert from './BaseAlert.vue'
-import { useRoute } from 'vue-router'
-import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
+import UserAPI from '@/assets/js/UserAPI'
+import type Reply from '@/assets/util/Reply'
+import errorMessages from '@/assets/json/ErrorMessage.json'
 
-const router = useRoute()
+const route = useRoute()
+const router = useRouter()
 const accountValue: Ref<string> = ref('')
 const passwordValue: Ref<string> = ref('')
 const repasswordValue: Ref<string> = ref('')
 const verificationValue: Ref<string> = ref('')
 const verificationCode: Ref<string> = ref('')
-const formTitle: string = router.name?.toString() ?? 'Register'
+const formTitle: string = route.name?.toString() ?? 'Register'
 const alertColor: Ref<string> = ref('red')
 const alertShow: Ref<boolean> = ref(false)
 const alertDelay: Ref<number> = ref(3000)
+const alertMessage: Ref<string> = ref('alert')
+const graph = ref<InstanceType<typeof FormBaseGraphValidation> | null>(null)
+const computedGraph = computed(() => graph.value)
 
 const sendRequest = async () => {
+  if(!validation()) {
+    updateVerification();
+    return;
+  }
+  let res: Reply = await UserAPI.sendAPI(UserAPI.register, accountValue.value, passwordValue.value, accountValue.value);
+  console.log(res);
+  let code = res?.code;
+  let duplicate = res?.data?.duplicate ?? false;
+  if(code == 200) {
+    // alertColor.value = 'green';
+    // showAlert('Register successfully!');
+    alert('Register successfully!');
+    router.push({ name: 'login' });
+  }
+  else if(duplicate) {
+    showAlert(errorMessages.DuplicateEmail);
+  }
+  else {
+    showAlert(`${code}: ${res?.message}`);
+  }
+}
+
+const validation = (): boolean =>  {
+  // validate grahp verification code
+  if(verificationCode.value != verificationValue.value) {
+    showAlert(errorMessages.WrongVerification);
+    return false;
+  }
+  // validate email
+  if(!accountValue.value.match(/^\S+@\S+\.\S+$/)) {
+    showAlert(errorMessages.InvalidEmailFormat);
+    return false;
+  }
+  // validate password
+  if(!passwordValue.value.match(/^[0-9A-Za-z]+$/) || passwordValue.value.length < 8 || passwordValue.value.length > 20) {
+    showAlert(errorMessages.InvalidPasswordFormat);
+    return false;
+  }
+  // validate re-password
+  if(passwordValue.value != repasswordValue.value) {
+    showAlert(errorMessages.PasswordMismatch);
+    return false;
+  }
+  return true;
+}
+
+const updateVerification = () => {
+  verificationValue.value = '';
+  if(!computedGraph.value)
+    return;
+  computedGraph.value.generateCode();
+}
+
+const showAlert = (message: string|null) => {
+  if(message != null)
+    alertMessage.value = message;
   alertShow.value = true;
   setTimeout(() => alertShow.value = false, alertDelay.value);
 }
@@ -39,7 +102,7 @@ const sendRequest = async () => {
         <template #label> Password </template>
         <template #small>
           The password must consist of only numbers and alphabets
-          and be 6 - 20 characters long.
+          and be 8 - 20 characters long.
         </template>
       </FormBaseInputText>
 
@@ -52,14 +115,14 @@ const sendRequest = async () => {
         <template #label> Verification code </template>
         <template #small></template>
       </FormBaseInputText>
-      <FormBaseGraphValidation @verification-code-change="(newV) => (verificationCode = newV)" />
+      <FormBaseGraphValidation ref="graph" @verification-code-change="(newV) => (verificationCode = newV)" />
       <FormBaseButton @click="sendRequest()" />
       <FormBaseHint :to="'/login'">
         <template #hint> Already have an account? </template>
         <template #link> Login. </template>
       </FormBaseHint>
     </div>
-    <BaseAlert :color="alertColor" :show="alertShow" :delay="alertDelay"/>
+    <BaseAlert :color="alertColor" :show="alertShow" :delay="alertDelay" :message="alertMessage"/>
   </div>
 </template>
 

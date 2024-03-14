@@ -8,7 +8,7 @@ class AuthController {
     res.status(200).json(new Reply(200, 'Login successfully!', null, false));
   }
   async register(req: Request, res: Response) {
-    let email = req.body.email, password = req.body.password, name = req.body.name || email;
+    let email = req.body?.email, password = req.body?.password, name = req.body?.name || email;
     if(!User.isValidEmail(email) || !User.isValidPassword(password) || !User.isValidName(name)) // validation
       res.status(400).json(new Reply(400, 'Invalid input format!', null, false));
     else {
@@ -27,7 +27,9 @@ class AuthController {
           res.status(400).json(new Reply(
             400,
             'The email had been used!',
-            null,
+            {
+              duplicate: true,
+            },
             false
           ));
         }

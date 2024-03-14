@@ -4,14 +4,14 @@ import sql from 'mssql';
 const dbConfig: sql.config = {
     user: 'Jason',
     password: '304421317742',
-    server: '127.0.0.1', 
+    server: 'localhost', 
     database: 'OnlineLabelingSystemDB',
     connectionTimeout: 10000,
     requestTimeout: 10000,
     options: {
         trustedConnection: true,
         enableArithAbort: true,
-        instanceName: 'SQLEXPRESS',
+        // instanceName: 'MySqlContainer',
         trustServerCertificate: true
     },
     port: 1433

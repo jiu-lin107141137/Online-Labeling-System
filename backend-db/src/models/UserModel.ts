@@ -6,7 +6,7 @@ class UserModel extends DBConnection {
   public static async addUser(email: string, password: string, name: string) {
     // generate sql string
     let sql = `
-      INSERT INTO User (${User.columnMap.email}, ${User.columnMap.password}, ${User.columnMap.name})
+      INSERT INTO dbo.t_User (${User.columnMap.email}, ${User.columnMap.password}, ${User.columnMap.name})
       VALUES (@${User.columnMap.email}, @${User.columnMap.password}, @${User.columnMap.name});
     `;
 
@@ -18,7 +18,7 @@ class UserModel extends DBConnection {
     
     try {
       let res = await this.executeInTransaction(sql, paramList);
-      return res;
+      return 0;
     } catch(err) {
       throw err;
     }
@@ -26,17 +26,17 @@ class UserModel extends DBConnection {
 
   public static async getDuplicate(email: string) {
     let sql = `
-      SELECT COUNT(*)
-      FROM TABLE User
-      Where email=@${User.columnMap.email}
+      SELECT COUNT(*) as user_count
+      FROM dbo.t_User
+      WHERE ${User.columnMap.email}=@${User.columnMap.email}
     `;
-
+    
     let paramList = [
       new SqlParameter(User.columnMap.email, User.columnType.email, email)
     ];
 
     try {
-      let res = (await this.executeInTransaction(sql, paramList)).recordset[0];
+      let res = (await this.executeInTransaction(sql, paramList)).recordset[0]['user_count'];
       return res;
     } catch(err) {
       throw err;

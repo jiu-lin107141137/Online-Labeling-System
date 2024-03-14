@@ -8,11 +8,13 @@ const props = withDefaults(
     delay: number,
     color: string,
     show: boolean,
+    message: string,
   }>(), 
   {
     delay: 3000,
     color: 'red',
     show: false,
+    message: 'This is an alert message.'
   },
 )
 
@@ -36,7 +38,7 @@ watch(() => props.show, () => {
       <span class="material-symbols-outlined" v-else>
         check_circle
       </span>
-      <p>This is an alert message.</p>
+      <p>{{ message }}</p>
     </div>
   </Teleport>
 </template>
@@ -62,8 +64,8 @@ watch(() => props.show, () => {
   user-select: none;
 
   p {
-    font-size: 1rem;
-    font-weight: 100;
+    font-size: 1.1rem;
+    font-weight: 500;
   }
 }
 

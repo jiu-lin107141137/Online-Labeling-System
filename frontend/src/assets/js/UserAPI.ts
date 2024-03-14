@@ -18,10 +18,10 @@ class UserAPI extends BaseAPI {
           response: res
         };
       else
-        rt = res.data.data;
+        rt = res.data;
     }).catch(err => {
       console.log(err);
-      rt = err.response.data?.data
+      rt = err.response?.data;
     });
     return rt;
   }

@@ -26,9 +26,9 @@ class BaseAPI {
 
   }
 
-  protected static async sendAPI<T extends (...args: any[]) => any> (func: T, ...args: Parameters<T>): Promise<Reply> {
+  public static async sendAPI<T extends (...args: any[]) => any> (func: T, ...args: Parameters<T>): Promise<Reply> {
     let res: Reply = await func(...args);
-    if(res.isExpired) {
+    if(res != null && res.isExpired) {
       await this.refresh();
       res = await func(...args);
     }

@@ -1,0 +1,8 @@
+{
+  "InvalidEmailFormat": "Invalid Email format!",
+  "InvalidPasswordFormat": "Invalid password format!",
+  "WrongVerification": "Wrong Verification code!",
+  "PasswordMismatch": "Password and re-password are mismatched!",
+  "DuplicateEmail": "The Email had been registered!",
+  "UnknownError": "Unknown error occurred, please try again later"
+}

@@ -25,14 +25,20 @@ class User {
   };
 
   public static isValidEmail(email: string): boolean {
+    if(!email)
+      return false;
     return !!email.match(/^\S+@\S+\.\S+$/) && email.length < 50;
   }
 
   public static isValidName(name: string): boolean {
+    if(!name)
+      return false;
     return name.length < 50;
   }
 
   public static isValidPassword(password: string): boolean {
+    if(!password)
+      return false;
     return !!password.match(/^[0-9A-Za-z]+$/) && password.length >= 8 && password.length <= 20;
   }
   // public constructor(userId: number|null, email: string|null, password: string|null, name: string|null, priority: number|null, classId: number|null) {

@@ -12,7 +12,7 @@ const ctx: Ref<CanvasRenderingContext2D | null | undefined> = ref(null)
 const emit = defineEmits<{
   (e: 'verificationCodeChange', value: string): void
 }>()
-defineExpose({ canvas })
+
 
 watch(code, (newV: string) => {
   emit('verificationCodeChange', newV)
@@ -64,6 +64,8 @@ const generateCode = () => {
     // }, 100);
   }
 }
+
+defineExpose({ generateCode })
 
 const randomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min) + min)
