@@ -4,6 +4,7 @@ import BaseAPI from "./BaseAPI";
 class UserAPI extends BaseAPI {
   public static async register(email: string, password: string, name: string): Promise<Reply|null> {
     let axios = super.getDBSConfig();
+    console.log(axios.defaults.baseURL);
     let rt: Reply|null = null;
     await axios({
       url: '/auth/register',

@@ -1,5 +1,6 @@
 import axios, { type AxiosInstance } from "axios";
 import type Reply from "../util/Reply";
+const { VITE_API_URL_DB, VITE_API_URL_FS } = process.env
 
 let DBSConfig: AxiosInstance, FSSConfig: AxiosInstance;
 
@@ -7,7 +8,7 @@ class BaseAPI {
   protected static getDBSConfig() {
     if(DBSConfig == null) {
       DBSConfig = axios.create();
-      DBSConfig.defaults.baseURL = 'http://127.0.0.1:3000';
+      DBSConfig.defaults.baseURL = VITE_API_URL_DB;
       DBSConfig.defaults.method = 'post';
     }
     return DBSConfig;
@@ -16,7 +17,7 @@ class BaseAPI {
   protected static getFSSConfig() {
     if(FSSConfig == null) {
       FSSConfig = axios.create();
-      FSSConfig.defaults.baseURL = 'http://127.0.0.1:5000';
+      FSSConfig.defaults.baseURL = VITE_API_URL_FS;
       FSSConfig.defaults.method = 'post';
     }
     return FSSConfig;
