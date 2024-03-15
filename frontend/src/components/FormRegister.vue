@@ -33,7 +33,6 @@ const sendRequest = async () => {
     return;
   }
   let res: Reply = await UserAPI.sendAPI(UserAPI.register, accountValue.value, passwordValue.value, accountValue.value);
-  console.log(res);
   let code = res?.code;
   let duplicate = res?.data?.duplicate ?? false;
   if(code == 200) {
