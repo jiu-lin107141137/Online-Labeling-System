@@ -4,7 +4,7 @@ import sql from 'mssql';
 const dbConfig: sql.config = {
     user: 'Jason',
     password: '304421317742',
-    server: 'localhost', 
+    server: '127.0.0.1', 
     database: 'OnlineLabelingSystemDB',
     connectionTimeout: 10000,
     requestTimeout: 10000,
