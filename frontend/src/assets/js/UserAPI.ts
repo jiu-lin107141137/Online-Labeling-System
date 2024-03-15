@@ -26,6 +26,30 @@ class UserAPI extends BaseAPI {
     });
     return rt;
   }
+
+  public static async login(email: string, password: string): Promise<Reply|null> {
+    let axios = super.getDBSConfig();
+    console.log(axios.defaults.baseURL);
+    let rt: Reply|null = null;
+    await axios({
+      url: '/auth/login',
+      data: {
+        email: email,
+        password: password,
+      }
+    }).then(res => {
+      if(res.status != 200)
+        throw {
+          response: res
+        };
+      else
+        rt = res.data;
+    }).catch(err => {
+      console.log(err);
+      rt = err.response?.data;
+    });
+    return rt;
+  }
 }
 
 export default UserAPI;

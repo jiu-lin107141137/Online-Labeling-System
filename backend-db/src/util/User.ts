@@ -7,6 +7,7 @@ class User {
   // public name: string|null;
   // public priority: number|null;
   // public classId: number|null;
+  public static tableName = 'dbo.t_User';
   public static columnMap = {
     userId: 'user_id',
     email: 'email',

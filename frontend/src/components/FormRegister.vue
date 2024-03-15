@@ -47,6 +47,7 @@ const sendRequest = async () => {
   else {
     showAlert(`${code}: ${res?.message}`);
   }
+  updateVerification();
 }
 
 const validation = (): boolean =>  {
