@@ -7,7 +7,8 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
-
+[0-9a-z]*-[0-9a-z]*-[0-9a-z]*-[0-9a-z]*-[0-9a-z]*/
+__pycache__
 .DS_Store
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
@@ -129,4 +130,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 backend-db/src/.DS_Store
-backend-db/src/.DS_Store
+backend-fs/src/.DS_Store
