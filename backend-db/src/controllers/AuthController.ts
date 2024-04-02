@@ -3,6 +3,7 @@ import Reply from '../util/Reply';
 import User from "../util/User";
 import UserModel from "../models/UserModel";
 import { hashConfig } from "../../env";
+import JWT from "../util/JWT";
 
 class AuthController {
   async login(req: Request, res: Response) {
@@ -22,13 +23,20 @@ class AuthController {
             },
             false
           ));
-        else
+        else {
+          let accessToken = JWT.signAccess(rt[0]);
+          let refreshToken = JWT.signRefresh(rt[0]);
           res.status(200).json(new Reply(
             200,
             'Login successfully',
-            null,
+            {
+              user: rt[0],
+              accessToken: accessToken,
+              refreshToken: refreshToken
+            },
             false
           ));
+        }
       }
       catch(err) {
         console.log(err);
@@ -68,6 +76,59 @@ class AuthController {
         console.log(err);
         res.status(500).json(new Reply(500, 'An internal error happened, please try again later!', null, false));
       }
+    }
+  }
+  async refresh(req: Request, res: Response) {
+    let refreshToken = req.body?.refreshToken;
+    let decoded = await JWT.decode(refreshToken, true);
+    if(decoded == null || decoded == -1)
+      res.status(403).json(new Reply(
+        403,
+        'Failed',
+        null,
+        false  
+      ));
+    else {
+      let user: any = decoded;
+      delete user.iat;
+      delete user.exp;
+      let accessToken = JWT.signAccess(user);
+      res.status(200).json(new Reply(
+        200,
+        'Success',
+        {
+          accessToken: accessToken
+        },
+        false
+      ));
+    }
+  }
+  async verifyManager(req: Request, res: Response) {
+    let accessToken = req.body?.accessToken;
+    let decoded = await JWT.decode(accessToken, true);
+    if(decoded == null || decoded == -1)
+      res.status(403).json(new Reply(
+        403,
+        'Unauthorized',
+        null,
+        false
+      ));
+    else {
+      let user: any = decoded;
+      if(user.priority < 1)
+        res.status(403).json(new Reply(
+          403,
+          'Not enough priority',
+          null,
+          false
+        ));
+      else
+        res.status(200).json(new Reply(
+          200,
+          'Success',
+          null,
+          false
+        ));
     }
   }
 }

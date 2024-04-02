@@ -38,6 +38,7 @@ const computedGraph = computed(() => graph.value)
     // alertColor.value = 'green';
     // showAlert('Register successfully!');
     alert('Login successfully!');
+    console.log(res.data)
     router.push({ name: 'home' });
   }
   else if(mismatch) {
