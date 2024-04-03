@@ -1,7 +1,6 @@
 import axios, { type AxiosInstance } from "axios";
 import type Reply from "../util/Reply";
 import { useInfoStore } from "@/stores";
-import { useRouter } from "vue-router";
 const { VITE_API_URL_DB, VITE_API_URL_FS } = process.env
 
 let DBSConfig: AxiosInstance, FSSConfig: AxiosInstance;
@@ -50,9 +49,9 @@ class BaseAPI {
     return false;
   }
 
-  private static logout(manual: boolean) {
-    let infoStore = useInfoStore();
-    let router = useRouter();
+  public static async logout(manual: boolean) {
+    const infoStore = useInfoStore();
+    const router = (await import('@/router/index')).default;
     infoStore.clearAll();
     window.sessionStorage.clear();
     window.localStorage.setItem('logout', Date.now().toString());
@@ -60,7 +59,7 @@ class BaseAPI {
       alert('You have logged out!');
     else
       alert('Token expired, please log in again!');
-    router.push('/login');
+    router.push({ name: 'login' });
   }
 
   public static async sendAPI<T extends (...args: any[]) => any> (func: T, ...args: Parameters<T>): Promise<Reply> {
@@ -70,7 +69,7 @@ class BaseAPI {
       if(flag)
         res = await func(...args);
       else
-        this.logout(false);
+        await this.logout(false);
     }
     return res;
   }

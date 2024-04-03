@@ -5,7 +5,7 @@ import UserAPI from '@/assets/js/UserAPI';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: routes
+  routes: routes,
 });
 
 router.beforeEach(async (to, from) => {
@@ -18,7 +18,7 @@ router.beforeEach(async (to, from) => {
     }
     infoStore.setAccessToken(token);
     infoStore.setUser(JSON.parse(window.sessionStorage.getItem('user') ?? '{}')?.content);
-    if(to.meta?.requireManager) {
+    if(to.meta?.requireManager && infoStore.accessToken) {
       let rt = await UserAPI.verifyManager(infoStore.accessToken);
       if(!rt?.data)
         return { name: 'home' };

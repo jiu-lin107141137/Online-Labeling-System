@@ -39,7 +39,7 @@ const computedGraph = computed(() => graph.value)
   if(code == 200) {
     // alertColor.value = 'green';
     // showAlert('Register successfully!');
-    console.log(res.data);
+    // console.log(res.data);
     window.sessionStorage.setItem('user', JSON.stringify({ content: res.data.user }));
 		window.sessionStorage.setItem('accessToken', JSON.stringify({ content: res.data.accessToken }));
 		window.sessionStorage.setItem('refreshToken', JSON.stringify({ content: res.data.refreshToken }));

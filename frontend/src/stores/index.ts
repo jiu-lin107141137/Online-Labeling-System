@@ -6,8 +6,8 @@ export const useInfoStore = defineStore('info', () => {
   const accessToken: Ref<string|null> = ref(null);
   const user: Ref<any> = ref(null);
 
-  const isLoggedIn = computed(() => user.value == null);
-  const priority = computed(() => user.value?.priority ?? -1);
+  const isLoggedIn = computed(() => user.value != null);
+  const isManager = computed(() => (user.value?.priority ?? -1) > 0);
   
   // function setRefreshToken(token: string) {
   //   refreshToken.value = token;
@@ -26,5 +26,5 @@ export const useInfoStore = defineStore('info', () => {
     user.value = null;
   }
 
-  return { /*refreshToken,*/ accessToken, user, isLoggedIn, priority, /*setRefreshToken,*/ setAccessToken, setUser, clearAll }
+  return { /*refreshToken,*/ accessToken, user, isLoggedIn, isManager, /*setRefreshToken,*/ setAccessToken, setUser, clearAll }
 })

@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router';
+import { useInfoStore } from '@/stores';
+import BaseAPI from '@/assets/js/BaseAPI';
+
+const infoStore = useInfoStore();
+
 </script>
 
 <template>
@@ -16,11 +21,12 @@ import { RouterLink } from 'vue-router'
           <li>
             <RouterLink class="active" to="/">Home</RouterLink>
           </li>
-          <li>
+          <li v-if="infoStore.isManager">
             <RouterLink class="" to="/">Management</RouterLink>
           </li>
           <li>
-            <RouterLink class="" to="/login">Login</RouterLink>
+            <RouterLink class="" to="/login" v-if="!infoStore.isLoggedIn">Login</RouterLink>
+            <a class="" @click="BaseAPI.logout(true)" v-else>Logout</a>
           </li>
         </ul>
       </nav>
@@ -86,6 +92,7 @@ nav {
         border-radius: 0.375rem;
         letter-spacing: 1px;
         transition: all 0.25s ease-in-out;
+        cursor: pointer;
       }
 
       a::after {
