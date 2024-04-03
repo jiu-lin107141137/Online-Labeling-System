@@ -106,27 +106,34 @@ class AuthController {
   async verifyManager(req: Request, res: Response) {
     let accessToken = req.body?.accessToken;
     let decoded = await JWT.decode(accessToken, true);
-    if(decoded == null || decoded == -1)
+    if(decoded == null)
       res.status(403).json(new Reply(
         403,
         'Unauthorized',
-        null,
+        false,
         false
       ));
     else {
       let user: any = decoded;
-      if(user.priority < 1)
+      if(user == -1)
+        res.status(403).json(new Reply(
+          403,
+          'Expired',
+          false,
+          true
+        ));
+      else if(user.priority < 1)
         res.status(403).json(new Reply(
           403,
           'Not enough priority',
-          null,
+          false,
           false
         ));
       else
         res.status(200).json(new Reply(
           200,
           'Success',
-          null,
+          true,
           false
         ));
     }

@@ -20,10 +20,9 @@
             const data = JSON.parse(event.newValue);
             for (let key in data) {
               window.sessionStorage.setItem(key, data[key]);
-              console.log("set item here ", key, data[key]);
+              // console.log("set item here ", key, data[key]);
             }
           }
-
           if(event.key === 'logout') {
             window.sessionStorage.clear();
             window.location.reload();

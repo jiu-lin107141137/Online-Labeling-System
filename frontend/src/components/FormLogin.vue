@@ -11,9 +11,11 @@ import type { Ref } from 'vue'
 import type Reply from '@/assets/util/Reply'
 import UserAPI from '@/assets/js/UserAPI'
 import errorMessages from '@/assets/json/ErrorMessage.json'
+import { useInfoStore } from '@/stores/index';
 
 const route = useRoute()
 const router = useRouter()
+const infoStore = useInfoStore()
 const accountValue: Ref<string> = ref('')
 const passwordValue: Ref<string> = ref('')
 const verificationValue: Ref<string> = ref('')
@@ -37,8 +39,14 @@ const computedGraph = computed(() => graph.value)
   if(code == 200) {
     // alertColor.value = 'green';
     // showAlert('Register successfully!');
+    console.log(res.data);
+    window.sessionStorage.setItem('user', JSON.stringify({ content: res.data.user }));
+		window.sessionStorage.setItem('accessToken', JSON.stringify({ content: res.data.accessToken }));
+		window.sessionStorage.setItem('refreshToken', JSON.stringify({ content: res.data.refreshToken }));
+    infoStore.setAccessToken(res.data.accessToken);
+    // infoStore.setRefreshToken(res.data.refreshToken);
+    infoStore.setUser(res.data.user);
     alert('Login successfully!');
-    console.log(res.data)
     router.push({ name: 'home' });
   }
   else if(mismatch) {
