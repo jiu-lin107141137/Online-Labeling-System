@@ -21,8 +21,12 @@ const infoStore = useInfoStore();
           <li>
             <RouterLink class="active" to="/">Home</RouterLink>
           </li>
-          <li v-if="infoStore.isManager">
-            <RouterLink class="" to="/">Management</RouterLink>
+          <li class="dropdown" v-if="infoStore.isManager">
+            <a class="" to="/">Management</a>
+            <div class="dropdown-content">
+              <RouterLink to="/login">Users</RouterLink>
+              <RouterLink to="/">Projects</RouterLink>
+            </div>
           </li>
           <li>
             <RouterLink class="" to="/login" v-if="!infoStore.isLoggedIn">Login</RouterLink>
@@ -111,6 +115,42 @@ nav {
         max-width: 100%;
       }
     }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+
+      a::after {
+        display: none;
+      }
+
+      .dropdown-content {
+        display: none;
+        // display: block;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        background: var(--gray-600);
+        width: 100%;
+        z-index: 1;
+
+        a {
+          display: block;
+          border-radius: 0;
+          padding: .5rem 1rem;
+          font-size: 1.1rem;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+
+      a:hover {
+        background: var(--gray-700);
+      }
+    }
   }
 
   @include navPhone() {
@@ -136,9 +176,9 @@ nav {
       }
 
       ~ ul {
-        max-height: 10rem;
+        max-height: 20rem;
 
-        li a {
+        .dropdown-content, li a {
           padding-left: 0;
           opacity: 1;
         }
@@ -174,6 +214,30 @@ nav {
         a::after {
           background: var(--blue-600);
         }
+      }
+
+      .dropdown {
+        .dropdown-content {
+          display: block;
+          max-height: 10rem;
+          width: calc(100% - 4rem);
+          margin: .5rem 0 0;
+          padding-left: 5rem;
+          background: var(--gray-700);
+          position: static;
+          transition: opacity .25s ease-in-out, 
+                      padding .25s ease-in-out;
+          border: .125rem solid var(--gray-600);
+          opacity: 0;
+
+          a {
+            padding: .5rem 1rem !important;
+          }
+        }
+      }
+
+      .dropdown:hover .dropdown-content  a:hover {
+        background: var(--gray-600);
       }
     }
   }

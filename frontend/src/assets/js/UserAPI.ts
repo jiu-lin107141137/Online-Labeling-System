@@ -49,6 +49,28 @@ class UserAPI extends BaseAPI {
     return rt;
   }
 
+  public static async loginByToken(token: string): Promise<Reply|null> {
+    let axios = super.getDBSConfig();
+    let rt: Reply|null = null;
+    await axios({
+      url: '/auth/login',
+      data: {
+        token: token
+      }
+    }).then(res => {
+      if(res.status != 200)
+        throw {
+          response: res
+        };
+      else
+        rt = res.data;
+    }).catch(err => {
+      console.log(err);
+      rt = err.response?.data;
+    });
+    return rt;
+  }
+
   public static async verifyManager(accessToken: string): Promise<Reply|null> {
     let axios = super.getDBSConfig();
     let rt: Reply|null = null;

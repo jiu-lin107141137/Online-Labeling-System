@@ -44,6 +44,43 @@ class AuthController {
       }
     }
   }
+  async loginByToken(req: Request, res: Response) {
+    let token = req.body?.token;
+    if(token) {
+      let decoded = await JWT.decode(token, true);
+      if(!decoded || decoded == -1)
+        res.status(400).json(new Reply(
+          400,
+          'Failed',
+          false,
+          false
+        ));
+      else {
+        let user: any = decoded;
+        delete user.iat;
+        delete user.exp;
+        let accessToken = JWT.signAccess(user);
+        let refreshToken = JWT.signRefresh(user);
+        res.status(200).json(new Reply(
+          200,
+          'Success',
+          {
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            user: user,
+          },
+          false
+        ));
+      }
+    }
+    else 
+      res.status(400).json(new Reply(
+        400,
+        'Failed',
+        false,
+        false
+      ));
+  }
   async register(req: Request, res: Response) {
     let email = req.body?.email, password = req.body?.password, name = req.body?.name || email;
     if(!User.isValidEmail(email) || !User.isValidPassword(password) || !User.isValidName(name)) // validation

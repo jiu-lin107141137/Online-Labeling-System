@@ -12,6 +12,7 @@ class AuthRoute extends Route{
 
     protected setRoutes() {
       this.router.post('/login', this.authController.login);
+      this.router.post('/login/token', this.authController.loginByToken);
       this.router.post('/register', this.authController.register);
       this.router.post('/refresh', this.authController.refresh);
       this.router.post('/verify/manager', this.authController.verifyManager);
