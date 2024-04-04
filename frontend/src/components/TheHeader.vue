@@ -24,7 +24,7 @@ const infoStore = useInfoStore();
           <li class="dropdown" v-if="infoStore.isManager">
             <a class="" to="/">Management</a>
             <div class="dropdown-content">
-              <RouterLink to="/login">Users</RouterLink>
+              <RouterLink to="/management/users">Users</RouterLink>
               <RouterLink to="/">Projects</RouterLink>
             </div>
           </li>
