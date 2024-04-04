@@ -53,7 +53,7 @@ class UserAPI extends BaseAPI {
     let axios = super.getDBSConfig();
     let rt: Reply|null = null;
     await axios({
-      url: '/auth/login',
+      url: '/auth/login/token',
       data: {
         token: token
       }
