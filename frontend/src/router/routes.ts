@@ -1,5 +1,6 @@
 import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
+import UserOverviewView from '@/views/UserOverviewView.vue';
 
 const routes = [
   {
@@ -29,6 +30,20 @@ const routes = [
       requireManager: false,
     }
   },
+  {
+    path: '/management',
+    children: [
+      {
+        path: 'users',
+        name: 'userManagementOverview',
+        component: UserOverviewView
+      }
+    ],
+    meta: {
+      requireLoggedIn: true,
+      requireManager: true,
+    }
+  }
 ];
 
 export default routes;

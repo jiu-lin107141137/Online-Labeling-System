@@ -142,7 +142,7 @@ class AuthController {
   }
   async verifyManager(req: Request, res: Response) {
     let accessToken = req.body?.accessToken;
-    let decoded = await JWT.decode(accessToken, true);
+    let decoded = await JWT.decode(accessToken, false);
     if(decoded == null)
       res.status(403).json(new Reply(
         403,

@@ -20,8 +20,10 @@ router.beforeEach(async (to, from) => {
     infoStore.setUser(JSON.parse(window.sessionStorage.getItem('user') ?? '{}')?.content);
     if(to.meta?.requireManager && infoStore.accessToken) {
       let rt = await UserAPI.verifyManager(infoStore.accessToken);
-      if(!rt?.data)
+      if(!rt?.data) {
+        alert('Unauthorized!')
         return { name: 'home' };
+      }
     }
   }
   else if(to.name == 'login') {

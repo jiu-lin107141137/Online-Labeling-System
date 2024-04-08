@@ -77,7 +77,7 @@ class UserAPI extends BaseAPI {
     await axios({
       url: '/auth/verify/manager',
       data: {
-        accessToken
+        accessToken: accessToken
       }
     }).then(res => {
       if(res.status != 200)
