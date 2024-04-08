@@ -11,7 +11,7 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
   const infoStore = useInfoStore();
   if(to.meta?.requireLoggedIn) {
-    const token = JSON.parse(window.sessionStorage.getItem('accessToken') ?? '')?.content;
+    const token = JSON.parse(window.sessionStorage.getItem('accessToken') ?? '"')?.content;
     if(!token) {
       alert('Please login first');
       return { name: 'login' };
@@ -25,7 +25,7 @@ router.beforeEach(async (to, from) => {
     }
   }
   else if(to.name == 'login') {
-    const token = JSON.parse(window.sessionStorage.getItem('refreshToken') ?? '')?.content;
+    const token = JSON.parse(window.sessionStorage.getItem('refreshToken') ?? '""')?.content;
     if(token) {
       // login by token here
       let res = await UserAPI.loginByToken(token);

@@ -29,7 +29,7 @@ class BaseAPI {
     await axios({
       url: '/auth/refresh',
       data: {
-        refreshToken: JSON.parse(window.sessionStorage.getItem('refreshToken') ?? '')?.content
+        refreshToken: JSON.parse(window.sessionStorage.getItem('refreshToken') ?? '"')?.content
       }
     }).then(res => {
       if(res.status != 200 || !res.data?.accessToken)
